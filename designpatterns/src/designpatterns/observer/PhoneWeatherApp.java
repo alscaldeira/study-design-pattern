@@ -7,10 +7,15 @@ public class PhoneWeatherApp implements IObserver {
 	}
 	
 	private WeatherStation weatherStation;
+	private double temperature;
 
 	@Override
 	public void update() {
-		System.out.println("Update phone weather app: " + weatherStation.toString());
+		this.temperature = weatherStation.getTemperature();
+	}
+	
+	public double getTemperature() {
+		return this.temperature;
 	}
 
 }

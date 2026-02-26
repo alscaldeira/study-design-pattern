@@ -1,8 +1,8 @@
 package designpatterns.observer;
 
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class WeatherStation implements IObservable, Runnable {
 	
@@ -12,7 +12,7 @@ public class WeatherStation implements IObservable, Runnable {
 
 	private volatile float temperature;
 	private final List<IObserver> observers = new CopyOnWriteArrayList<>();
-	private final Random random = new Random();
+	// private final Random random = new Random();
 	
 	@Override
 	public void add(IObserver observer) {
@@ -39,7 +39,7 @@ public class WeatherStation implements IObservable, Runnable {
 
 	@Override
 	public void run() {
-		int updates = 0;
+		/*int updates = 0;
 		while (updates < 4) {
 			try {
 				Thread.sleep(2000);
@@ -47,11 +47,16 @@ public class WeatherStation implements IObservable, Runnable {
 				Thread.currentThread().interrupt();
 				break;
 			}
-			// set a new random temperature between -10.0 and 40.0
 			temperature = -10 + random.nextFloat() * 50f;
 			updates++;
 			notifyObserver();
 		}
+		*/
+	}
+	
+	public void setTemperature(float temperature) {
+		this.temperature = temperature;
+		notifyObserver();
 	}
 
 	public float getTemperature() {

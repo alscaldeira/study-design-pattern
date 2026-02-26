@@ -7,10 +7,15 @@ public class DigitalWatch implements IObserver {
 	}
 	
 	private WeatherStation weatherStation;
+	private double temperature;
 
 	@Override
 	public void update() {
-		System.out.println("Update digital watch: " + weatherStation.toString());
+		this.temperature = weatherStation.getTemperature();
+	}
+	
+	public double getTemperature() {
+		return this.temperature;
 	}
 
 }

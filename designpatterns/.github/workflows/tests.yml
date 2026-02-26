@@ -1,0 +1,30 @@
+name: Java Unit Tests (No Build Tool)
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Baixa seu repositório
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile Classes and Tests
+        run: |
+          # Cria pasta para os arquivos compilados
+          mkdir -p bin
+          # Compila o código e os testes incluindo o JAR do JUnit no classpath
+          javac -d bin -cp "lib/*:." src/*.java test/*.java
+
+      - name: Run JUnit Tests
+        run: |
+          # Executa os testes usando o Console Launcher do JUnit
+          java -jar lib/junit-platform-console-standalone-*.jar \
+               --class-path bin \
+               --scan-class-path
