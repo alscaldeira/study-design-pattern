@@ -1,33 +1,32 @@
 name: Java Manual CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixa o código do repositório
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Instala o Java (JDK 17 ou a versão que você preferir)
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Compila todos os arquivos .java mantendo a estrutura de pacotes
-      - name: Compile Java Files
+      - name: Debug - List Files
+        run: ls -R
+
+      - name: Compile and Run
         run: |
           mkdir -p bin
-          # Compila recursivamente todos os arquivos dentro de src/designpatterns
-          find src -name "*.java" > sources.txt
+          find . -name "*.java" > sources.txt
           javac -d bin @sources.txt
-
-      # 4. Executa a classe que contém o método main de teste
-      # Se houver um erro (System.exit(1)), o GitHub Actions marcará como falha
-      - name: Run DesignPatternsTest
-        run: |
+          # Executa o teste
           java -cp bin designpatterns.DesignPatternsTest
