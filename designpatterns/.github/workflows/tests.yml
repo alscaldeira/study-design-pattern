@@ -11,23 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixa o código do repositório
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Instala o Java (JDK 17 ou a versão que você preferir)
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Compila todos os arquivos .java mantendo a estrutura de pacotes
       - name: Compile Java Files
         run: |
           mkdir -p bin
-          # Compila recursivamente todos os arquivos dentro de src/designpatterns
-          find src -name "*.java" > sources.txt
+          find . -name "*.java" > sources.txt
           javac -d bin @sources.txt
 
       # 4. Executa a classe que contém o método main de teste
