@@ -20,13 +20,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-            - name: Compile Java Files
+      - name: Debug - List Files
+        run: ls -R
+
+      - name: Compile and Run
         run: |
           mkdir -p bin
+          # Busca todos os arquivos .java em qualquer lugar do projeto
           find . -name "*.java" > sources.txt
           javac -d bin @sources.txt
-
-      - name: Run DesignPatternsTest
-        run: |
+          # Executa o teste
           java -cp bin designpatterns.DesignPatternsTest
-
