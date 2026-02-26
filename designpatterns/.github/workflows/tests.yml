@@ -20,14 +20,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile Java Files
+            - name: Compile Java Files
         run: |
           mkdir -p bin
           find . -name "*.java" > sources.txt
           javac -d bin @sources.txt
 
-      # 4. Executa a classe que contém o método main de teste
-      # Se houver um erro (System.exit(1)), o GitHub Actions marcará como falha
       - name: Run DesignPatternsTest
         run: |
           java -cp bin designpatterns.DesignPatternsTest
+
